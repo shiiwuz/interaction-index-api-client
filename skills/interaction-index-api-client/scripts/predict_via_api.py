@@ -15,9 +15,16 @@ def sha_ok(difficulty: int, data: str) -> bool:
     return h.startswith("0" * difficulty)
 
 
+UA = (
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/120 Safari/537.36"
+)
+
+
 def http_json(url: str, *, method: str = "GET", headers: dict[str, str] | None = None, body: dict | None = None) -> dict:
     data = None
-    hdrs = {"accept": "application/json"}
+    # Cloudflare/WAF may block default Python UA; always send a browser-ish UA.
+    hdrs = {"accept": "application/json", "user-agent": UA}
     if headers:
         hdrs.update(headers)
     if body is not None:
