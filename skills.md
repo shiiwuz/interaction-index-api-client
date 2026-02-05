@@ -27,12 +27,39 @@ python3 <YOUR_OPENCLAW_SKILLS_DIR>/interaction-index-api-client/scripts/predict_
   --text $'标题\n正文...\nhttps://example.com'
 ```
 
+## Input
+
+Two supported inputs:
+
+- `--text`: text snippet (title + body + link)
+- `--tme-url`: Telegram public post link (`https://t.me/<channel>/<id>`)
+
+Recommended `--text` format:
+
+```text
+标题一行
+正文几行...
+https://source.domain/article
+```
+
 ## Output
 
-The API returns JSON including:
+The API returns JSON. Key fields:
 
 - `score10`: 1-10 rating (higher -> more expected interactions)
-- `pred_reactions_total`: predicted total reactions
+- `pred_reactions_total`: predicted total reactions (emoji/reaction count)
+- `title`: extracted title
+- `domain`: extracted source domain
+- `meta.weekday` / `meta.hour`: used as features (Asia/Shanghai)
+- `pow.solved_ms`: PoW solve time on the client
+
+Suggested chat reply format:
+
+```text
+标题：<title>
+评分：score10 = X/10
+预测互动：约 N
+```
 
 ## Notes
 

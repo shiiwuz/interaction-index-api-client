@@ -23,6 +23,44 @@ The API requires a PoW per request:
 - `X-PoW-Id: <pow_id>`
 - `X-PoW-Nonce: <nonce>`
 
+## Input format
+
+Two supported inputs:
+
+- `--text`: paste a short news blurb.
+- `--tme-url`: a public Telegram post link (`https://t.me/<channel>/<id>`).
+
+Recommended `--text` layout (works best with the model):
+
+```text
+一句标题（尽量单独一行）
+几行正文/摘要
+https://source.domain/article
+```
+
+## Output fields
+
+The client prints JSON from the API. Key fields:
+
+- `score10`: 1-10 (higher -> more expected interactions)
+- `pred_reactions_total`: predicted total reactions (emoji/reaction count)
+- `yhat_log1p_reactions`: internal score (log1p scale)
+- `title`: extracted title
+- `domain`: extracted source domain
+- `meta.weekday` / `meta.hour`: posting time features (Shanghai timezone)
+- `input`: echoes what you sent
+- `pow.solved_ms`: how long it took to solve PoW on the client
+
+## Suggested reply format (for chats)
+
+If you want a short human-friendly reply:
+
+```text
+标题：<title>
+评分：score10 = X/10
+预测互动：约 N
+```
+
 ## Usage
 
 The API base URL is fixed: `https://zaihua.cone.im`
