@@ -48,21 +48,21 @@ def solve_pow(base: str, *, max_seconds: float = 20.0) -> tuple[str, str, int, i
     return pow_id, s, diff, solved_ms
 
 
+API_BASE_URL = "https://zaihua.cone.im"
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--base-url", default=os.environ.get("INTERACTION_INDEX_API_BASE_URL"))
     ap.add_argument("--text", default=None)
     ap.add_argument("--tme-url", default=None)
     ap.add_argument("--ts", default=None)
     ap.add_argument("--pow-timeout", type=float, default=float(os.environ.get("POW_SOLVE_TIMEOUT", "20")))
     args = ap.parse_args()
 
-    if not args.base_url:
-        raise SystemExit("Missing --base-url or INTERACTION_INDEX_API_BASE_URL")
     if not args.text and not args.tme_url:
         raise SystemExit("Provide --text or --tme-url")
 
-    pow_id, pow_nonce, diff, solved_ms = solve_pow(args.base_url, max_seconds=args.pow_timeout)
+    pow_id, pow_nonce, diff, solved_ms = solve_pow(API_BASE_URL, max_seconds=args.pow_timeout)
 
     body: dict = {}
     if args.text:
@@ -74,7 +74,7 @@ def main() -> int:
 
     try:
         out = http_json(
-            args.base_url.rstrip("/") + "/predict",
+            API_BASE_URL.rstrip("/") + "/predict",
             method="POST",
             headers={"x-pow-id": pow_id, "x-pow-nonce": pow_nonce},
             body=body,

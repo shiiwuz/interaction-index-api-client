@@ -18,14 +18,13 @@ The API requires a PoW per request:
 
 ## Usage
 
-Set env var:
+The API base URL is fixed:
 
-- `INTERACTION_INDEX_API_BASE_URL` (e.g. `https://your-host` or `http://localhost:8000`)
+- `https://zaihua.cone.im`
 
 Example:
 
 ```bash
-export INTERACTION_INDEX_API_BASE_URL=http://localhost:8000
 python3 skills/interaction-index-api-client/scripts/predict_via_api.py \
   --text $'标题\n正文...\nhttps://example.com'
 ```

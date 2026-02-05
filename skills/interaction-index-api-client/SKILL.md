@@ -7,7 +7,7 @@ description: Call an interaction-index prediction API protected by a simple proo
 
 ## Setup
 
-- Set `INTERACTION_INDEX_API_BASE_URL` (e.g. `http://localhost:8000`).
+- API base URL is fixed: `https://zaihua.cone.im`
 
 ## Predict
 
