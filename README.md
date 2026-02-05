@@ -1,6 +1,13 @@
 # interaction-index-api-client (OpenClaw skill)
 
-A tiny client + OpenClaw skill that calls an `interaction-index-api` service that is protected by a simple proof-of-work (PoW).
+Predict an "interaction index" (互动分/互动指数) for short news/posts.
+
+- Input: a text snippet (title + summary + links) or a Telegram public post link (`t.me/.../...`).
+- Output: `score10` (1-10) + `pred_reactions_total` (expected emoji/reaction count).
+
+This repo provides:
+- an OpenClaw skill (`skills/interaction-index-api-client/`)
+- a tiny Python client that calls the hosted API at `https://zaihua.cone.im`
 
 ## How it works
 
@@ -18,13 +25,20 @@ The API requires a PoW per request:
 
 ## Usage
 
-The API base URL is fixed:
+The API base URL is fixed: `https://zaihua.cone.im`
 
-- `https://zaihua.cone.im`
-
-Example:
+Text example:
 
 ```bash
 python3 skills/interaction-index-api-client/scripts/predict_via_api.py \
   --text $'标题\n正文...\nhttps://example.com'
 ```
+
+Telegram post example:
+
+```bash
+python3 skills/interaction-index-api-client/scripts/predict_via_api.py \
+  --tme-url https://t.me/<channel>/<id>
+```
+
+Install notes for OpenClaw users: `skills.md`

@@ -1,17 +1,20 @@
 ---
 name: interaction-index-api-client
-description: Call an interaction-index prediction API protected by a simple proof-of-work (PoW). Use when you want to score a text snippet or a Telegram public post via a remote API.
+description: Predict an "interaction index" (互动分/互动指数) for a text snippet or a Telegram public post by calling the hosted API (PoW-protected). Output includes score10 and predicted reactions.
 ---
 
 # interaction-index-api-client
 
+Use this skill when the user asks to 预测互动分/互动指数 for a short news blurb.
+
 ## Setup
 
 - API base URL is fixed: `https://zaihua.cone.im`
+- No API key needed; each request uses a short proof-of-work (PoW) to throttle RPM.
 
 ## Predict
 
-Text:
+Text (title + body + link recommended):
 
 ```bash
 python3 skills/interaction-index-api-client/scripts/predict_via_api.py \
